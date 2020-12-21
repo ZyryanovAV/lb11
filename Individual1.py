@@ -1,31 +1,41 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+#!/usr/bin/env 2.
+# -*- config: utf-8 -*-
 
-# Создайте рекурсивную функцию, печатающую все возможные перестановки для целых
-# чисел от 1 до N.
+# Вариант 1. Напишите рекурсивную функцию, проверяющую правильность расстановки скобок в строке.
+# При правильной расстановке выполняются условия:
+# количество открывающих и закрывающих скобок равно.
+# внутри любой пары открывающая – соответствующая закрывающая скобка, скобки
+# расставлены правильно
+ 
 
-import sys
+def par_checker(symbol_string):
+    s = []
+    balanced = True
+    index = 0
+
+    while index < len(symbol_string) and balanced:
+        symbol = symbol_string[index]
+        if symbol in "(":
+            s.append(symbol)
+    else:
+        if len(s) == 0:
+            balanced = False
+        else:
+            top = s.pop()
+            if not matches(top, symbol):
+                balanced = False
+        index += 1
+
+    return balanced and len(s) == 0
 
 
-def permutation(s):
-    if len(s) == 1:
-        return [s]
-
-    perm_list = []
-    for a in s:
-        elements = [x for x in s if x != a]
-        z = permutation(elements)
-
-        for t in z:
-            perm_list.append([a] + t)
-
-    return perm_list
+def matches(open, close):
+    opens = "("
+    closers = ")"
+    return opens.index(open) == closers.index(close)
 
 
 if __name__ == '__main__':
-    n = int(input())
 
-    arr = list(range(1, n + 1))
-
-    for line in permutation(arr):
-        print(line)
+    print(par_checker('((())())'))
+    print(par_checker(')()'))
