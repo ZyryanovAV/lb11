@@ -8,25 +8,25 @@
 # расставлены правильно
  
 
-def par_checker(symbol_string):
-    s = []
+def par_checker(simvol_string):
+    new_list = []
     balanced = True
     index = 0
 
-    while index < len(symbol_string) and balanced:
-        symbol = symbol_string[index]
-        if symbol in "(":
-            s.append(symbol)
+    while index < len(simvol_string) and balanced:
+        simvol = simvol_string[index]
+        if simvol in "(":
+            new_list.append(simvol)
     else:
-        if len(s) == 0:
+        if len(new_list) == 0:
             balanced = False
         else:
-            top = s.pop()
-            if not matches(top, symbol):
+            top = new_list.pop()
+            if not matches(top, simvol):
                 balanced = False
         index += 1
 
-    return balanced and len(s) == 0
+    return balanced and len(new_list) == 0
 
 
 def matches(open, close):
